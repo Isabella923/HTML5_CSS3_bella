@@ -1,0 +1,833 @@
+@charset "utf-8";
+
+/*CSS 상단부분에는 html문서에서 지정한 것과 동일한 문자셋을 지정*/
+
+
+/*스타일시트 방식 3가지
+    1. 내부 스타일시트 : HTML내의 <head>에서 <style> 지정
+    2. 외부 스타일시트 : <head>에서 <link>를 이용하여 선언 (@import = 공통 CSS 불러들이기)
+    3. 인라인 스타일시트 : <body>에서 해당 요소에서 style=" "로 지정 (일일이 해아함)*/
+
+
+/*유용한 색참고 사이트 https://www.w3schools.com/cssref/css_colors.asp*/
+
+
+/*01 선택자*/
+
+
+/*선택자 = 디자인 표현할 대상이 되는 부분 (아래 예시에서 'h1')*/
+
+h1 {
+    color: royalblue;
+    background: slategrey;
+}
+
+
+/*선택자의 종류*/
+
+
+/*type 선택자 (원하는 태그 앞에 사용) _ <p></p>*/
+
+p {
+    color: mediumpurple;
+}
+
+
+/*id 선택자 (유일한 이름 / #id) _ <p id="ctxt"></p>*/
+
+#ctxt {
+    color: mediumseagreen;
+}
+
+
+/*class 선택자 (여러 개의 요소에 같은 class 부여 가능 / .class _ <p class='atxt'></p> (class = 여러개 지정가능)*/
+
+.atxt {
+    font-weight: bold;
+}
+
+
+/*전체 선택자 (페이지 내 모든 요소) / '*'사용*/
+
+* {
+    margin: 0;
+    padding: 0%;
+}
+
+
+/*하위 선택자 (<div class="abox*></div> 안에 있는거 전부 적용*/
+
+.abox p {
+    color: mediumvioletred;
+}
+
+
+/*자식 선택자 (<div class="abox">안에서 더 하위에 있는 것들은 적용 안됨*/
+
+.abox>p {
+    color: midnightblue;
+}
+
+
+/*인접 선택자 (<h1> 바로 다음에 있는 <p>만 적용됨 _ 그 다음부터는 안됨)*/
+
+h1+p {
+    color: navajowhite;
+}
+
+
+/*형제 선택자 (h3과 같은 계층에 있는 <p>만 적용됨 _ tab선으로 계층구별 _ 같은 계층이면 원격도 가능)*/
+
+h3~p {
+    color: palegreen;
+}
+
+
+/*그룹 선택자 (여러 선택자들을 ,로 함께 묶어 속성을 부여하는 것)*/
+
+h1,
+p {
+    border: 5px solid lightblue;
+}
+
+
+/*tag 선택자 */
+
+div {
+    font-size: 15px;
+}
+
+
+/*속성 선택자 (HTML 요소의 속성 유무 or 속성값을 []에 넣어 선택자로 사용*/
+
+
+/*  h1[class]: class명을 가진 h1 
+    img[alt]: alt 속성 가진 img 
+    p[class='abc']: class명이 유일하게 abc인 p 
+    p[class~='abc']: class명이 유일하게 abc이거나 여러 개의 class명 중 하나가 abc인 p 
+    p[class!='abc']: class명이 abc이거나 abc~로 시작하는 p 
+    p[class^='abc']: class명이 abc로 시작하는 p p[class$='abc']: class명이 abc로 끝나는 p 
+    p[class*='abc']: class명에 abc가 포함되어 있는 p
+    p[class|='abc']: class명에 abc가 포함되어 있는 p
+    p[target='_blank]: 특정 값을 갖는 속성에 스타일 적용
+    a[href^="mailto"]: href값이 mailto로 시작하는 a*/
+
+
+/*가상클래스 선택자* (링크가 걸린 문자에 스타일부여)*/
+
+
+/*  a:link=링크가 걸린 문자에 속성 부여 
+    a:visited=링크 클릭해서 그 페이지에 갔다온 경우에 속성 부여 
+    a:hover=링크가 걸린 문자에 마우스가 닿았을 때 
+    a:active=링크 걸린 글자가 활성화되었을 때 (클릭 관련) 
+    a:focus=링크 걸린 글자에 포커스가 생길 때 (tab 등의 키로)*/
+
+
+/*가상요소 선택자 (요소에 id, class 부여하지 않고 알아서 위치선택할 수 있는 것)*/
+
+
+/*  :first-letter 요소의 첫글자
+    :first-line 요소의 첫줄
+    :first-child 같은 요소 중 첫번째
+    :last-child 같은 요소 중 마지막
+    :nth-child(n), :nth-last-child(n) 같은 요소 중 (n)번째:before=요소 안 맨 앞에 배치될 요소
+    :before 요소 안 맨 앞에 배치될 요소
+    :after 요소 안 맨 뒤에 배치될 요소
+    :enabled 요소를 사용할 수 있을 때
+    :disabled 요소를 사용할 수 없을 때 (회원 약관 등)
+    :checked radio box, check box에서 해당 항목을 선택했을 때 스타일 지정
+    :root 문서 전체에 적용하기 
+    :nth-of-type(n) :nth-last-of-type(n) 특정 태그 위치에 스타일 적용
+    :first-of-type :last-of-type 형제 관계 요소의 위치에 따라 스타일 적용
+    :only-child :only-of-type 하나뿐인 자식 요소에 스타일 적용
+    :target 앵커 목적지에 스타일 적용
+    :not(#ex) 특정 요소가 아닐 때 스타일 적용*/
+
+
+/*선택자의 우선순위 : 전체 -> type -> 가상 = class -> id
+우선으로 두고 싶으면 맨 끝에 !important 작성*/
+
+
+/*02 문자 관련 스타일*/
+
+.font-style {
+    font-family: "돋움", 굴림, 맑은 고딕, Arial, sans-serif;
+    /*글꼴 지정. 해당 글꼴이 없을 때 다음 글꼴로 넘어감*/
+    font-size: 12px;
+    /*글자 크기 조절 (px, %, em, rem, vw, vh)
+        절대크기: 지정된 글자 크기, [xx-small, x-small, small, medium, large, x-large, xx-large]
+        상대크기: 부모 요소를 기준으로 표시, [larger, smaller] 사용 가능
+        16px = 100% = 1em / rem = html에서 지정한 글자 크기 /
+        vw = 뷰포트 너비값의 1/100 / vh = 뷰포트 높이값의 1/100*/
+    font-weight: normal;
+    /*글자 굵기 [normal, bold, bolder, lighter, 100, 200 ... 900]*/
+    font-style: normal;
+    /*글자 스타일 [italic, oblique]*/
+    font-variant: normal;
+    /*normal = 문자 원래대로 설정 small-caps = 작은 대문자로 지정]*/
+    line-height: 1.4;
+    /*줄간격 (px,% em / 아무 단위 안쓰면 em _ 1.4em = 140%)
+    숫자를 입력하면 글자 크기의 n배만큼 줄 간격이 설정됨*/
+    font: italic 12px/24px 돋움;
+    /*글꼴 속성 한줄에 묶어 표현 (순서 중요)
+        [font-weight, font-style, font-variant][font-size/line-height][font-family]
+        font-weight에서 나오는 type 설명
+            caption: 캡션에 어울리는 글꼴 
+            small-caption: 작은 캡션에 어울리는 글꼴 
+            icon: 아이콘에 어울리는 글꼴 
+            menu: 드롭다운 메뉴에 어울리는 글꼴 
+            message-box: 대화상자에 어울리는 글꼴  
+            status-bar: 상태 표시줄에 어울리는 글꼴*/
+    font-feature-settings: normal;
+    /*오픈타입 글꼴 세부 설정 조절*/
+    font-language-override: normal;
+    /*언어를 덮어쓸 다른 언어 지정*/
+    font-kerning: normal;
+    /*각 글자 사이의 간격 조절*/
+    font-variant-alternates: normal;
+    /*기본 글꼴 외 다른 형태로 표시하는 기능*/
+    font-variant-ligatures: normal;
+    /*글자를 더 보기 좋게 만드는 기능*/
+    font-variant-position: normal;
+    /*위 첨자, 아래 첨자 사용*/
+    font-variant-caps: normal;
+    /*글자의 대문자 형태 지정*/
+    font-variant-numeric: normal;
+    /*글자의 숫자 스타일 지정*/
+    font-variant-east-asian: normal;
+    /*동아시아 문자 표현방식 지정*/
+    font-synthesis: none;
+    /*'굵게', '기울임'이 포함되지 않은 글꼴을 합성해 표시할지 지정*/
+    /*웹에서 지원하는 폰트 적용법
+        @font-face {
+            font-family: 'NGB';
+            src: url('fonts/NANUMBARUNGOTHICBOLD.TTF') format('TTF');*/
+    /*구글 웹포트 (참고 : google_web_fontEX)
+        https://fonts.google.com -> select this style -> embed (2가지 타입 존재)
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap" rel="stylesheet">
+        @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap")*/
+}
+
+.font-style {
+    color: #ffffff;
+    /*글자색 지정*/
+    letter-spacing: 1px;
+    /*글자 간 간격 (px,em 등, 음수도 가능)*/
+    word-spacing: normal;
+    /*단어 간 간격*/
+    text-decoration: none;
+    /*텍스트에 줄 표시 [none 줄 없음, underline 밑줄, overline 윗줄,  line-through 가운데줄*/
+    text-transform: none;
+    /*대소문자 변경 [none, full-width, capitalize 첫글자만 대문자, uppercase 대문자, lowercase 소문자]*/
+    text-shadow: none;
+    /*그림자 효과 [none, 가로 거리px, 세로 거리px, 번짐 정도px, 색상], 
+                        가로 거리: 양수 값은 오른쪽, 음수는 왼쪽.
+                        세로 거리: 양수 값은 아래쪽, 음수는 위쪽.
+                        번짐 정도: 양수 값은 발산, 음수는 축소*/
+}
+
+
+/*03 문단 관련 스타일*/
+
+.font-style {
+    text-align: center;
+    /*문단 정렬, [start, end, left, right, center, justify, match-parent] 
+                justify: 양쪽에 맞추어 문단을 정렬
+                match-parent: 부모 요소를 따라 문단을 정렬*/
+    text-indent: 30%;
+    /*문단 첫머리 들여쓰기, (px, %)*/
+    word-wrap: break-word;
+    /*영문을 띄어쓰기 없이 길게 쓰면 박스 밖으로 나가니까 적당히 끊어주는 것*/
+    word-break: normal;
+    /*줄 끝에서 어떻게 단어를 끊어주어야 하는지, [normal 기본값, break-all 글자 넘치면 줄바꿈, keep-all 단어를 끊어 줄바꿈하지 않음*/
+    white-space: normal;
+    /*공백 처리, [normal, nowrap, pre, pre-line, pre-wrap]
+                normal: 연속 공백들과 줄바굼이 하나의 공백으로 처리 (길면 줄바꿈) 
+                nowrap: 길어도 줄바꿈 없이 박스 밖으로 나감
+                pre: 줄바꿈이 소스 그대로 나타남
+                pre-line: 소스 그대로 나타나나, 길면 줄바꿈
+                pre-wrap: 연속 공백을 하나의 공백으로 처리, 줄바꿈은 소스 그대로 표현, 길면 줄바꿈*/
+    overflow: hidden;
+    /*긴 텍스트에 말줄임 기호, [hidden, visible, scroll] 
+        visible = 넘치는 부분을 보여줌, hidden = 넘치는 부분을 감춤*/
+    display: block;
+    /*요소의 성격을 바꿔줌, [block, inline, inline-block, none 등]
+                            block: 블록 레벨로 지정 (줄바꿈 일어남)
+                            inline: 인라인으로 지정 (줄바꿈 일어나지 않음)
+                            inline-block: 인라인으로 지정, 내용은 블록 레벨 속성을 지정
+                            none: 요소를 보이지 않게 숨김
+                            table: 블록 레벨의 표 생성
+                            inline-table: 인라인 레벨의 표 생성
+                            table-row: 표의 행으로 만듦 <tr>
+                            table-row-group: 표의 행 그룹을 만듦 <tbody>
+                            table-header-group: 표의 제목 영역 그룹 <thead>
+                            table-footer-group: 표의 요약 영역 그룹 <tfoot>
+                            table-column: 표의 열로 만듦 <col>
+                            table-column-group: 표의 열 그룹을 만듦 <colgroup>
+                            table-cell: 표에서 하나의 셀로 만듦 <td> <th>
+                            table-caption: 표의 캡션 <caption>
+                            list-item: 기본적인 블록 박스와 표시자 박스를 만듦*/
+    visibility: visible;
+    /*visible = 요소 보이게 함, hidden = 요소를 숨김*/
+    overflow: hidden;
+    /*hidden = 넘치는 콘텐츠 숨김, auto = 콘텐츠가 넘칠 경우에만 스크롤바 생성*/
+    opacity: 0.5;
+    /*요소에 투명도 부여 (0~1)*/
+    direction: ltr;
+    /*글자 쓰는 방향 지정
+        ltr: 왼쪽 -> 오른쪽 (defalut) 
+        rtl: 오른쪽 -> 왼쪽*/
+    text-justify: auto;
+    /*정렬시 공백 조정, [auto, none, inter-word, distribute] 
+                        auto: 웹에서 자동으로 지정
+                        inter-word: 단어 사이의 공백을 조절해서 정렬
+                        distribute: 인접한 글자 사이의 공백을 맞춰 정렬*/
+    text-overflow: clip;
+    /*넘치는 텍스트 처리 [clip, ellipsis]
+                        clip: 넘치는 텍스트를 자름
+                        ellipsis: (...)로 잘린 텍스트를 표시*/
+    /*요소 안의 문자를 세로 중앙 정렬하기*/
+    /*display: table-cell;
+    vertical-align: middle;*/
+}
+
+
+/*04 색상 코드*/
+
+
+/*색상추출 사이트: www.colorpicker.com
+    색상명 사이트: www.w3schools.com (learn colors > color names)*/
+
+span {
+    color: plum;
+    /*색상이름표기법 (글자를 plum색으로 표현)*/
+    color: #000000;
+    /*HEX표기법 (16진수)*/
+    color: rgba(255, 0, 0, 0.5);
+    /*RGBA표기법 [red 값, green 값, blue 값, alpha 값]_alpha = 0~1 사이의 투명도*/
+    color: hsl(360, 100%, 0%, 0.5);
+    /*HSLA표기법 [hue 값, saturation 값, lightness 값, alpha 값]*/
+    color: rgb(100, 100, 100);
+    /*RGB표기법 [red, green, blue]_각각 0~255 사이의 수*/
+    border-color: tomato;
+    /*테두리색 지정, transparent(기본값)*/
+    background-color: beige;
+    /*배경색 지정*/
+}
+
+
+/*05 배경 관련 스타일*/
+
+span {
+    background-image: url('yellow.PNG');
+    /*배경이미지 설정 _none(기본값) (크기에 따라 배경이미지가 반복되서 나타날 수 있음)*/
+    background-repeat: repeat;
+    /*배경이미지 반복 지정 [repeat, no-repeat, repeat-x, repeat-y, space, round]
+                            repeat: 가로, 세로로 반복 (기본값)
+                            no-repeat: 한번만 표시
+                            repeat-x: 가로로만 반복
+                            repeat-y: 세로로만 반복
+                            space: 반복하다가 가로 마지막 이미지가 잘리지 않도록 이미지 사이가 벌어짐
+                            round: 반복하다가 세로 마지막 이미지가 잘리지 않다록 이미지가 납작하게 찌그러짐*/
+    background-position: left top;
+    /*배경이미지 위치 지정 (배경이미지 반복 안할 때 기본적으로 좌측 상단에 위치) [가로 위치, 세로 위치]
+                            가로 위치 = left, righ, center, px값, %값 등 (default = left)
+                            세로 위치 = top, bottom, center, px값, %값 등 (default = top)
+                            Ex_ 150px 130px : 좌측으로부터 150px, 상단으로부터 130px 떨어진 지점 위치
+                                50%, 30% : 이미지 가로 50% 지점을 페이지 50% 지점에, 이미지 세로 30% 지점을 페이지 30% 지점에 위치*/
+    background-attachment: fixed;
+    /*배경이미지 고정 [fixed, scroll]
+                        scroll: 스크롤과 함께 스크롤 (default)
+                        fixed: 고정됨 (스크롤 시 따라가지 않음)*/
+    background-size: cover;
+    /*배경이미지 크기 조절 [auto, contain, cover, px, %]
+                            auto: 배경 이미지 원래크기로 배치, 남은 공간 비움 (원래 비율 유지)
+                            contain: 배경 이미지 잘리지 않게 배치, 남은 공간 비움 (원래 비율 유지)
+                            cover: 배경 이미지 빈공간 없이 꽉 채우고 남는 공간 비움 (원래 비율 유지)
+                            px: 가로크기, 세로크기 (하나만 적으면 정사각형) 
+                            %: 배경 이미지의 크기를 페이지의 가로 % 세로 %로 하는 것*/
+    background: #f00 url('') no-repeat 50px 100px fixed center top scroll / cover;
+    /*배경 속성 한번에 쓰기*/
+    background-origin: border-box;
+    /*배경이미지 시작점 [border-box, padding-box, content-box]
+                        border-box: 테두리 좌측 상단 모퉁이에서 시작
+                        padding-box: 안여백 좌측 상단 모퉁이에서 시작 (default)
+                        content-box: 콘텐츠 좌측 상단부터 시작*/
+    background-clip: border-box;
+    /*배경 영역 지정 [border-box, padding-box, content-box]
+                        border-box: 배경이 테두리를 포함한 영역에 배치 (default)
+                        padding-box: 배경이 테두리 제외한 안쪽 영역에 배치
+                        content-box: 배경이 안여백을 제외한 콘텐츠 영역에만 배치*/
+    /*배경 선형그라데이션*/
+    background: linear-gradient(#f00 blue, white);
+    /*기본형 : 위 -> 아래로 채우는 세로 방향 (위에서부터 빨강, 파랑, 흰색)*/
+    background: linear-gradient(to right bottom, blue, white);
+    /*to : 시작 위치 바꾸기 [to top, to left, to right, to bottom]
+                            to top: 아래에서 위
+                            to left: 오른쪽에서 왼쪽
+                            to right: 왼쪽에서 오른쪽
+                            to bottom: 위에서 밑
+                            to bottom right: 좌측 상단에서 우측 하단 (사선)*/
+    background: linear-gradient(45deg, blue, white 30%, rgba(0, 0, 255, 0.5));
+    /*deg : 각도 이용 (S = 0, W = 90, N = 180, E = 270)
+    30%의 의미 : % 안쓰면 공동분배 그라데이션인데, 여기선 30%지점부터 흰색
+    rgba, hsla 등으로 투명도 설정 가능*/
+    background: repeating-linear-gradient(yellow, #ffffff 20%, red 10%);
+    /*반복 (여기서는 100/20 = 5번 반복)*/
+    /*배경 원형그라데이션*/
+    background: radial-gradient(circle at 30% 40%, red, blue 25%, yellow 50%);
+    /*circle: 원형 / ellipse: 타원형 (여기선 100/25 = 4번 반복)
+    closest-side: 가장 가까운 모서리까지
+    closest-corner: 가장 가까운 코너까지
+    farthest-side: 가장 먼 모서리까지
+    farthest-corner: 가장 먼 코너까지 (default)
+    at % %: 원의 중심점을 지정 (좌측에서 30%, 상단에서 40% 교차지점이 중심점)*/
+    /*image sprite (참고 : image_sprite.html)
+    이미지가 많으면 로딩 속도가 느려지는데, 이를 대비헤 여러 이미지를 하나로 지정 후, 'background-position'이용해 잘라 사용하는 법*/
+    /*multiple background
+    background-image: url(), url(), linear-gradient();
+    background-repeat: repeat, repeat, no-repeat;
+    이런식으로 설정하면 각각 순서에 맞게 여러 이미지 동시 삽입가능*/
+}
+
+
+/*06 box 스타일*/
+
+
+/*Box : 콘텐츠가 자리하는 영역 
+블록 레벨요소: 혼자 한 줄을 차지 (너비 100%) <div> <p> 등
+인라인 요소: 한 줄에 여러 개의 레벨 요소를 표시 가능. <img> <strong> 등*/
+
+.box-model {
+    width: 800px;
+    height: 100%;
+    /*페이지의 가로, 세로 크기 (여백, 테두리 포함X) [px, %, em, auto(default)]
+    (max-width, min-width, max-height, min-height)*/
+    padding: 10px;
+    /*내용과 테두리 사이의 여백(안쪽) (if width = 100px, padding = 10px -> 박스 가로크기 = 10 + 100 + 10 = 120px
+    padding: 10px; 위 아래 왼 오른 각 10
+    padding: 10px 20px; 위 아래 10 왼 오른 20
+    padding: 10px 20px 30px; 위 10 왼 오른 20 아래 30
+    padding: 10px 20px 30px 40px; 위 10 오른 20 아래 30 왼 40 (시계방향)
+    padding-top: 10px; 위쪽 10
+    padding-right: 10px; 오른쪽 10
+    padding-bottom: 10px; 아래 10
+    padding-left: 10px; 왼쪽 10*/
+    margin: 0%;
+    /*테두리와 다음 박스 사이의 여백(바깥)
+    방향은 위 padding과 같음*/
+    margin: 0 auto;
+    /*중앙 정렬*/
+    /*여백 초기화 : * {margin: 0; padding: 0;}*/
+    border: 1px solid red;
+    /*box 테두리*/
+    border-width: 5px thick 15px 20px;
+    /*테두리 사이즈 (시계방향 순서 _ 위에 처럼)
+    border-top: 5px;
+    border-bottom: 5px;
+    border-left: 5px;
+    border-right: 5px;*/
+    border-color: red;
+    /*테두리 색상*/
+    border-style: dashed;
+    /*테두리선 모양 [none, hidden, solid, dashed, dotted, double, groove, inset, outset, ridge]
+                    none: 테두리 없음 (default)
+                    hidden: 테두리가 안 보임
+                    solid: 실선
+                    dashed: 긴 점선
+                    dotted: 점선
+                    double: 두 줄 실선 (간격은 border-width로 지정 / 최소 3px에서 가능)
+                    groove, ridge: 각종 액자 형태의 테두리
+                    inset: border-collapse:collapse = groove (seperate면 오목한 창틀 느낌)
+                    outset = border-collapse:collapse = ridge (seperate면 볼록한 창틀 느낌)*/
+    border-radius: 5px;
+    /*박스 모서리 둥글게 (px, %)
+    border-radius: 10px 20px 30px 40px; 순서는 아래 순서
+    border-top-left-radius: 10%;
+    border-top-right-radius: 20%;
+    border-bottom-left-radius: 30%;
+    border-bottom-right-radius: 40%;
+    border-radius: 200px 0 0 0; 왼쪽 탑만 존재하는 1/4짜리 원모양 박스
+    위 예시는 border-radius: 5px / 5px와 같음 (왼쪽: 가로방향 반지름, 오른쪽: 세로방향 반지름)*/
+    border-top-left-radius: 10px 70px;
+    /*가로 방향보다 세로 방향을 더 많이 기울어지게 하는 것*/
+    border-image: url('gyp.png') 20 round;
+    /*테두리에 무늬 입히기*/
+    border-image-repeat: repeat;
+    /*이미지 형태 반복 [repeat, round, stretch]
+                        repeat, round: 모서리 처리가 약간 다르나, 둘다 이미지 패턴을 반복
+                        stretch: 이미지 패턴 하나를 늘려서 채워줌*/
+    outline: 5px solid red;
+    /*두깨가 늘어나도 주변에 공간 확보X (레이아웃 흐트러지지 않게 영역 밖에 테두리 표시
+    outline-style, outline-width, outline-color: 속성 부여 (네면 공동만 가능)
+    outline-offset: border와 outline 사이에 간격을 줄 때(px)*/
+    box-sizing: border-box;
+    /*width가 100%이면 padding, border 속성을 추가할 수 없는데, 이럴 때 사용가능
+    border-box: 전체크기에 padding, border 포함
+    content-box: 불포함 (default)*/
+    box-shadow: 8px 15px 10px 7px inset black;
+    /*그림자 효과 [수평거리, 수직거리, 흐림정도(blur), 번짐정도(spread), 그림자가 안쪽에, 색상] 
+                    수평거리: 그림자가 원본과 가로로 떨어진 간격 (필수)
+                    수직거리: 그림자가 원본과 세로로 떨어진 간격 (필수)
+                    번짐정도: +(확장), -(축소)*/
+    resize: both;
+    /*박스의 모서리를 마우스로 크기 조절 지정(IE불가) [horizontal, vertical, both, none]
+                                                    horizontal: 가로 방향으로 크기 조절
+                                                    vertical: 세로 방향으로 크기 조절
+                                                    both: 양방향으로 크기 조절
+                                                    none: 크기 조절 불가능*/
+    overflow: auto;
+    /*resize를 할 때 같이 써야함 (visivle 사용불가능)
+    resize가 가능하면 우측하단에 빗살무늬 표식이 생김*/
+    -webkit-appearance: none;
+    /*form요소에서 사이트마다 고유 디자인 속성이 있는데, 이를 초기화 함*/
+    /*-webkit-: 크롬, 사파리 / -moz-: 파이어폭스 / -o-: 오페라 / -ms-: 인터넷 익스플로러*/
+}
+
+
+/*07 변형 관련 속성*/
+
+.box-model {
+    transform: translate(20px, 30px);
+    /*변형을 나타냄 (여러 함수 적용)
+                    2차원
+                    translate(20px, 30px): 가로(x축) 20, 세로(y축) 30 이동
+                    translateX(20px): 가로(x축) 20 이동
+                    translateY(30px): 세로(y축) 30 이동
+                    scale(0.7, 1.3): 가로 70% 축소, 세로 130% 확대 (1이 기준)
+                    scaleX(0.7): 가로 70% 축소
+                    sclaeY(1.3): 세로 130% 확대
+                    rotate(30deg): 30도 회전
+                    skew(30deg, 20deg): 가로 30도 왜곡, 세로 20도 왜곡
+                    skewX(30deg): 가로 30도 왜곡
+                    skewY(20deg): 세로 20도 왜곡
+                    matrix(1, -0.3, 0, 1, 0, 0): scaleX(), skewY(), skewX(), scaleY(), translateX(), translateY() 순서로 적용
+                    3차원
+                    matrix3d(n [, n]): 4x4 행렬을 이용해 이동, 확대, 축소, 회전 등의 변환 지정
+                    translate3d(x, y, z): 지정 크기만큼 x축, y축, z축으로 이동
+                    translateZ(z): z축
+                    scale3d(x,y,z): 지정 크기만큼 x축, y축, z축으로 확대/축소
+                    scaleZ(sz): z축
+                    rotate3d(x,y,z,각도): 지정한 각도만큼 회전
+                    rotateX(각도): 지정한 각도만큼 x축으로 회전
+                    rotateY(각도): 지정한 각도만큼 y축으로 회전
+                    rotateZ(각도): 지정한 각도만큼 z축으로 회전
+                    perspective(길이): 입체적으로 보일 수 있는 깊이 값 지정*/
+    transform-origin: 30rem;
+    /*변형 기준점 [x축 y축 z축, initial, inherit]*/
+    transform-style: flat;
+    /*3D 변형 적용 [flat, preserve-3d]*/
+    transition-duration: 2s;
+    /*속성전환 시간 설정 (2초동안 진행)*/
+    transition-property: color;
+    /*속성 대상 설정 [all, none, background-color, width, height 등]*/
+    transition-timing-function: ease-in;
+    /*속성 속도곡선 지정 [linear, ease, ease-in, ease-out, ease-in-out, cubic-bezier(n,n,n,n)]
+                        linear: 등속 (cubic-bezier(0,0,1,1))
+                        ease: 느린 시작 -> 빠르게 실행 -> 천천히 종료 (cubic-bezier(0.25,0.1,0.25,0.1) _ default)
+                        ease-in: 점점 빨라짐 (cubic-bezier(0.42,0,1,1))
+                        ease-out: 점점 느려짐 (cubic-bezier(0,0,0.58,1))
+                        ease-in-out: 느린 시작과 끝 (cubic-bezier(0.42,0,0.58,1))
+                        cubic-bezier(n,n,n,n): 직접 입력*/
+    transition-delay: 1s;
+    /*지연시간 설정 (1초 기다렸다가 변화가 시작되도록 설정*/
+    transition: width 1s, color 1s;
+    /*transition 한 번에 적용*/
+    perspective: 0rem;
+    /*원근감 표현 [크기, none]*/
+    backface-visibility: hidden;
+    /*요소의 뒷면 표시 [visible, hidden]*/
+    @keyframes sample {
+        {
+            from background-color: blue;
+        }
+        {
+            to background-color: red
+        }
+    }
+    /*animation 효과 (한 스타일에서 -> 다른 스타일로 점진적 변화)
+        from, to 대신 0%, 50%, 100% 등으로 해도 됨
+        animation-name: sample; 이름 지정
+        animation-fill-mode: forwards; 효과 나타난 후 처음으로 돌아가지 않고 그대로 유지
+        animation-delay: 2s; 애니메이션 시작 지연시간
+        animation-iteration-count: infinite; 실행 횟수 지정(수치 지정) or 계속 반복
+        animation-direction: reverse; 재생 방향 지정
+                                    normal: 순방향 (default)
+                                    reverse: 역방향
+                                    alternate: 순 -> 역 지그재그 (infinite 에서)
+                                    alternate-reverse: 역 -> 순 지그재그 (infinite 에서)
+        animation-timing-function: ease; 속도 곡선 지정
+        animation: sample 5s linear 2s infinite alternate; 한줄 지정*/
+}
+
+.content {
+    /*다단편집*/
+    column-count: 3;
+    /*가로로 나열될 텍스트 단의 개수 [숫자 | auto] 
+                                    auto: 속성에 따른 단의 개수 자동 계산*/
+    column-gap: normal;
+    /*단과 단사이 여백 [크기 | normal]*/
+    column-rule: thin solid #000;
+    /*단과 단사이 구분선의 너비, 스타일, 색상 [너비, 스타일, 색상]*/
+    column-rule-width: thin;
+    /*[크기, thin, medium, thick]*/
+    column-rule-style: dashed;
+    /*[none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset]*/
+    column-rule-color: chocolate;
+    column-span: all;
+    /*여러 단을 하나로 합치기 (일부는 불가능) [1, all] 
+                                            1: 합치지 않음 (default)
+                                            all: 전체를 하나로 합침*/
+    column-width: auto;
+    /*단의 너비 [크기, auto]
+                auto: 속성에 따른 단의 너비 자동 계산 
+                너비가 고정되므로 화면의 너비가 달라지면 단의 개수도 달라짐*/
+    break-after: column;
+    /*특정 요소 뒤에서 단을 나눔 (다단을 어디서부터 시작할지 정함) [column, avoid-column] 
+                                                                column: 단을 나눔
+                                                                avoid-column: 단을 나누지 않음*/
+    break-before: column;
+    /*특정 요소 앞에서 단을 나눔 [column, avoid-column] */
+    break-inside: column;
+    /*특정 요소 안에서 단을 나눔 [column,avoid-column] */
+}
+
+
+/*08 리스트, 표 관련 속성*/
+
+.list-style {
+    list-style: inside;
+    /*목록 속성 한꺼번에 표시 (font속성과 비슷)*/
+    list-style-type: none;
+    /*목록의 불릿과 번호 스타일 지정 [disc, circle, square, none, 등]
+                                    disc: 채운 원
+                                    circle: 빈 원
+                                    square: 채운 사각형
+                                    none: 삭제
+                                    decimal: 1로 시작하는 십진수
+                                    decimal-leading-zero: 앞에 0이 붙는 십진수
+                                    lower-roman: 소문자 로마 숫자
+                                    upper-roman: 대문자 로마 숫자
+                                    lower-alpha / lower-latin: 소문자 알파벳
+                                    upper-alpha / upper-latin: 대문자 알파벳
+                                    armenian: 아르메니아 숫자
+                                    georgian: 조지 왕조시대의 숫자*/
+    list-style-image: none;
+    /*불릿 대신 이미지 넣기 [none, url( ' ' )]*/
+    list-style-position: inside;
+    /*들여쓰기 [inside, outside] 
+                inside: 안쪽으로 들여 씀
+                outside: 밖으로 내어 씀 (default)*/
+}
+
+.table {
+    caption-side: bottom;
+    /*표 제목 위치 지정 [top, bottom]*/
+    border: solid 3px black;
+    /*표 테두리 스타일 지정*/
+    border-collapse: collapse;
+    /*테두리 통합, 분리 [separate, collapse]
+                        separate: default
+                        collapse: 테두리를 하나로 합쳐서 표시*/
+    border-spacing: 0em;
+    /*인접한 셀 테두리사이 거리 지정 [크기] 
+                                    값이 하나면 수평, 수직 거리를 한 번에 지정
+                                    값이 2개면 첫 번째 = 수평거리, 두 번째 = 수직거리*/
+    empty-cells: hide;
+    /*빈 셀 표시 여부 지정 [show, hide]
+                            show: 테두리를 그려 빈 셀을 표시 (default)
+                            hide: 숨기기 (비워두기)*/
+    width: 200em;
+    height: 200em;
+    /*부모 요소를 기준 [px, %, auto]
+                        auto:셀의 줄 바꿈에 따라 높이 값 자동조정*/
+    padding: 2em;
+    /*내용과 표 테두리 거리*/
+    table-layout: auto;
+    /*콘텐츠에 맞게 셀 너비 지정 [fixed, auto]
+                                auto: 셀 내용에 따라 너비 달라짐 (default)
+                                fixed: 셀 너비 고정*/
+    word-break: break-all;
+    /*셀 너비보다 긴 내용도 셀 안에 표시*/
+    text-align: center;
+    /*셀 안에서 수평 정렬 (text 정렬과 same)*/
+    vertical-align: baseline;
+    /*셀 안에서 수직 정렬 [baseline, top, bottom, middle, sub, super, text-top, text-bottom, 길이, %]
+                            baseline: 인라인 요소의 기준선을 부모 요소의 기준선에 맞춤
+                            sub: 인라인 요소의 기준선을 부모 요소의 아래 첨자 위치에 맞춤
+                            super: 인라인 요소의 기준선을 부모 요소의 위 첨자 위치에 맞춤
+                            top: 인라인 요소의 윗부분을 부모 요소의 윗부분에 맞춤
+                            middle: 인라인 요소의 중앙 부분을 부모 요소의 기준선에서 x축높이 반만큼 올려서 맞춤
+                            bottom: 인라인 요소의 아랫부분을 부모 요소의 아랫부분에 맞춤
+                            text-top: 인라인 요소의 윗부분을 부모 요소 글골의 윗부분에 맞춤
+                            text-bottom: 인라인 요소의 아랫부분을 부모 요소 글꼴의 아랫부분에 맞춤
+                            이미지나 폼 정렬시에도 사용 (img, input, select, label, <th>, td>)*/
+}
+
+
+/*09 float layout*/
+
+
+/*block요소는 원래 세로로만 나열되지만, 이를 이용하여 가로로도 배치 가능*/
+
+.position {
+    float: left;
+    /*[left, right, none]
+        left: 요소를 왼쪽에 배치하고 나머지 콘텐츠는 그 주변을 흐르드록 함
+        right: 요소를 오른쪽에 배치하고 나머지 콘텐츠는 그 주변을 흐르드록 함*/
+    clear: both;
+    /*float 속성 해제 [none, left, right, both] 
+                        left: float된 박스 중 좌측이 짧을 때 좌측의 빈 공간부터 채워 내려옴
+                        right: float된 박스 중 우측이 짧을 때 우측의 빈 공간부터 채워 내려옴
+                        both: float된 박스 중 어느 쪽도 채우지 않고 다시 한단으로 배치*/
+}
+
+
+/*10 position layout*/
+
+.position {
+    position: static;
+    /*배치 방법 지정 [static, relative, absolute, fixed]  
+                        static: relative, absolute, fixed 했던 박스를 원상태로 회복 (default)
+                        relative: left, top 속성으로 이동 가능 (absolute의 부모 요소 역할도 수행)
+                        absolute: left, top, right, bottom으로 원래 위치에서 따로 떼어내 독립적으로 새로운 위치 설정 (부모 요소 필수)
+                        fixed: 요소 위치를 screen 기준으로 지정 (스크롤 해도 계속 고정, 화면에서 요소가 잘릴 수도 있음)
+                        (static을 제외한 나머지 것들은 좌표를 이용해 위치 조절 가능)*/
+    /*left: 100px; 요소를 부모 박스 좌측에서 우측 방향으로 100px 떨어진 곳에 배치
+    left: auto; 위에서 정한 left값을 취소함
+    (나머지 right, bottom, top 등도 개념 동일*/
+    z-index: auto;
+    /*겹쳐 있는 요소들의 계층 변경 시 사용 (값이 작을 수록 밑에 위치, 값이 없을 경우 맨 먼저 삽입하는 요소가 z-index:1이고 점점 커짐)*/
+    visibility: visible;
+    /*요소 보이게 or 보이지 않게 하기 [visible, hidden, collapse]
+                                        visible: default
+                                        hidden: 안 보이나 배치는 그대로 있음
+                                        collapse: 표의 행, 열, 행 그룹, 열 그룹 등에서 지정하면 서로 겹치도록 조정함*/
+}
+
+
+/*11 기타 layout*/
+
+
+/*flex layout*/
+
+.flexbox {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    /*flex 선언*/
+    flex: 1;
+    flex-grow: 0;
+    /*자식 요소가 적거나 그 크기가 작아 공간이 남을 때 항목의 크기를 늘려 채워주는 것 [0, 1, 양수]
+                                                                                    0: default
+                                                                                    1: 항목들이 모두 1이면 같은 크기
+                                                                                    양수: 값을 높게 줄수록 늘어남 (공간부족시 무의미)*/
+    flex-shrink: 0;
+    /*자식 요소가 많거나 그 크기가 커서 공간이 부족할 때 항목의 크기를 줄여주는 것 [0, 1, 양수]
+                                                                                0: 공간 부족해도 항복 크기 줄일 수 없음
+                                                                                1: 컨테이너를 넘치면 안 넘치게 알아서 좁아짐 (default)
+                                                                                양수: 값을 높게 줄수록 좁아짐 (공간 남을시 무의미)*/
+    flex-basis: auto;
+    /*자식 요소들의 초기 길이 지정 [auto, px]
+                                    auto: default
+                                    px: 원하는 가로 크기 부여*/
+    flex: auto;
+    /*위 3개 한번에 나타내기 [flew-grow, flew-shrink, flew-basis]
+        flex: none; flex 0 0 auto;
+        flex: 1; flex: 1 1 0;
+        flex: 100px; flex: 1 1 100px;
+        flex: 1 1; flex: 1 1 0;
+        flex: 1 100px; flex: 1 1 100px;*/
+    flex-direction: column;
+    /*방향 지정 [row, row-inverse, columns, column-inverse]
+                    row: 좌측 -> 우측 (default)
+                    row-inverse: 우측 -> 좌측
+                    column: 위 -> 아래
+                    column-inverse: 아래 -> 위*/
+    justify-content: center;
+    /*공간 남을 때 (flex-grow: 0;) 자식요소 가로정렬 [flex-start, flex-end, center, space-between, space-around]
+                                                        flex-start: 시작점으로 정렬
+                                                        flex-end: 끝점으로 정렬
+                                                        center: 중앙으로 정렬
+                                                        space-between: 양쪽 정렬
+                                                        space-around: 요소 좌우 동일 간격*/
+    flex-wrap: nowrap;
+    /*자식 요소 줄바꿈 방식 [no-wrap, wrap, wrap-reverse]
+                            no-wrap: 자식 요소 많아도 한줄 안에 배치 (default)
+                            wrap: 자식 요소 많으면 다른 줄로 넘침
+                            wrap-inverse: 자식 요소 많으면 다음 위 줄로 넘침*/
+    flex-flow: row wrap;
+    /*flex-direction, flex-wrap을 나란히 붙여 하나의 속성처럼 쓸 수 있음 [flex-direction, flex-wrap]*/
+    order: 2;
+    /*자식 요소들의 순서 바꿔주는 속성 (몇번째에 배치할지) [0, 양수, 음수]
+                                                            0: 순서 바꾸지 않음 (default)
+                                                            양수: 원하는 순서 지정
+                                                            음수: 좌측으로 자리를 바꾸는 횟수*/
+    align-items: center;
+    /*자식 요소 세로 정렬 [stretch, flex-start, flex-end, center, baseline]
+                            stretch: 부모 요소의 세로 크기를 따라 확장됨 (default)
+                            flex-start: 시작쪽으로 정렬
+                            flex-end: 끝쪽으로 정렬
+                            center: 세로 중앙 정렬
+                            baseline: 글자의 baseline 기준으로 정렬*/
+    align-self: center;
+    /*자식 요소 중 선택된 항목에 대해서만 세로로 다시 정렬 [auto, stretch, flex-start, flex-end, center, baseline]*/
+    align-content: center;
+    /*flex-wrap: wrap; 일때, 여러 줄을 세로로 정렬하는 속성 [stretch, flex-start, flex-end, center, baseline] */
+}
+
+
+/*grid layout*/
+
+.grid {
+    /*참고 = 'grid_layoutEX.html'*/
+    display: grid;
+    grid-template-columns: 30% 70%;
+    /*가로 크기 지정 (2개)*/
+    grid-template-rows: 50px 150px 50px;
+    /*세로 크기 지정 (3개)*/
+}
+
+
+/*12 미디어 쿼리(media query)*/
+
+
+/*사용자가 어떤 미디어를 사용하는가에 따라 사이트의 형태가 바뀌도록 CSS 작성하는 법*/
+
+
+/*기기마다 가로폭 다름 (크롬 브라우저 -> 개발자 도구 -> toggle device toolbar : 해상도 확인 가능)
+기기별 해상도 참고 사이트 : "http://troy.labs.daum.net/"
+외부 css파일 연결하는 법
+@import url('style_pc.css') only screen and (min-width: 500px) and (max-width: 1000px);
+<link rel='stylesheet' type='text/css' media="all and (min-width: 1000px)" href="style_pc.css">
+1000px 보다 넓은 해상도일 때 style_pc.css 연결*/
+
+@media all and (min-width: 1000px) {}
+
+
+/*Media Type (and로 연결) [and / , / only / not / print / screen / speech / tv / aural / braille / handheld / projection / tty / embossed] 
+                all: 모든 미디어 장치에 사용 (default)
+                ,: 동일한 스타일을 사용할 미디어를 쉼표로 추가
+                only: 미디어 쿼리를 지원하는 웹 브라우저에서만 조건을 인식
+                not: not으로 지정된 미디어 유형은 제외함
+                print: 프린터에 사용
+                screen: pc, 테블릿, 스마트폰에 사용
+                speech: 스크린리더기가 페이지를 읽는데 사용*/
+
+@media screen and (orientation: landscape) {}
+
+
+/*화면 회전 감지 [landscape, portrait]*/
+
+@media screen and (min-device-aspect-ratio: 16/9) {}
+
+
+/* 화면 비율이 16:9 이하일 때 사용*/
+
+
+/* 크기비교
+아주 작은 화면: 576px 미만
+작은 화면: 576px 이상
+중간 화면: 768px 이상
+큰 화면: 992px 이상
+아주 큰 화면: 1200px 이상*/
